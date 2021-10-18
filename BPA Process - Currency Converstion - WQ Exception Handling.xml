@@ -1,0 +1,653 @@
+﻿<process name="Currency Converstion - WQ Exception Handling" version="1.0" bpversion="6.0.0.434" narrative="MARK EXCEPTION STAGES ARE USED TO MARK THE EXCEPTION DETAILS IN CONTROL QUEUE" preferredid="0d26f022-ed4f-4274-bce4-8b005aeb87e2">
+  <view>
+    <camerax>103</camerax>
+    <cameray>225</cameray>
+    <zoom version="2">0.9375</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="8630bcba-4831-4c8d-a045-f787faa9b085" type="Normal" published="False">
+    <name>Currency Converter</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>42</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="29c2fb11-cd47-46d6-a4ba-b2b94476ec3f" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>225</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ce97e35b-c7ff-41d3-b7b1-cdeed2f635bb</onsuccess>
+  </stage>
+  <stage stageid="8e607995-265f-4dac-b993-324f2eee8507" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="31149877-e0c2-48e4-86d5-36c84abd8fba" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-450</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>120</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="ce97e35b-c7ff-41d3-b7b1-cdeed2f635bb" name="Create Instance" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <inputs>
+      <input type="flag" name="Enable Events" narrative="Flag to indicate that events should be enabled / disabled on the attached instance - defaulted to True" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="handle" narrative="An integer which can be used to identify the created instance in subsequent actions" stage="handle" />
+    </outputs>
+    <onsuccess>7815ccc7-c6d0-4ed7-b644-36e9446c3095</onsuccess>
+    <resource object="MS Excel VBO" action="Create Instance" />
+  </stage>
+  <stage stageid="73354171-6ace-4676-85a0-6c8899b71892" name="handle" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>630</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7815ccc7-c6d0-4ed7-b644-36e9446c3095" name="Open Workbook" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>30</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <inputs>
+      <input type="number" name="handle" narrative="The integer handle identifying the instance on which the required workbook should be opened. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="File name" narrative="The path and name of the file which should be opened." expr="&quot;C:\Users\vignesh\Music\Currency_Details - WQ - EXCEPTION.xlsx&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" narrative="The name used by Excel to identify the workbook - usually this is the file name (without the path)." stage="Workbook Name" />
+    </outputs>
+    <onsuccess>660d3045-4162-4e9f-b7ac-52c1e1900d40</onsuccess>
+    <resource object="MS Excel VBO" action="Open Workbook" />
+  </stage>
+  <stage stageid="8992d1d3-1d4f-4aa9-bd12-4e0e9c8e7dc5" name="Workbook Name" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>735</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="660d3045-4162-4e9f-b7ac-52c1e1900d40" name="Get to Collection" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-60</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <inputs>
+      <input type="number" name="handle" narrative="The integer handle identifying the instance on which the worksheet which should be retrieved resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" narrative="The name of the workbook which contains the sheet required. The default empty text indicates the currently active workbook on the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" narrative="The name of the worksheet within the specified workbook which should be written to a collection. The default empty text indicates the currently active worksheet within the specified workbook." expr="&quot;Sheet1&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data" narrative="The collection containing the data from the specified worksheet - the column IDs will be gleaned from the first row on the sheet being retrieved." stage="Input Collection" />
+    </outputs>
+    <onsuccess>ef4dd338-09ad-4613-b838-dc3d00fd9ba3</onsuccess>
+    <resource object="MS Excel VBO" action="Get Worksheet As Collection" />
+  </stage>
+  <stage stageid="205d69e6-eeb0-48ba-9689-a7d8bd229b83" name="Input Collection" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ef4dd338-09ad-4613-b838-dc3d00fd9ba3" name="Launch" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <onsuccess>4c3ac20f-9a4c-4bd4-bc5a-eed77bb5700d</onsuccess>
+    <resource object="Currency_Converter" action="Launch" />
+  </stage>
+  <stage stageid="41e525bb-2643-4859-849c-089e4815cbe1" name="To Currecy" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>840</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">INR</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d43d528f-6465-4ef4-9f07-5975f533c9b7" name="Write Result to Exce;" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <inputs>
+      <input type="number" name="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook Name]" />
+      <input type="collection" name="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[Output Collection]" />
+      <input type="text" name="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;Sheet1&quot;" />
+      <input type="text" name="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="True" />
+    </inputs>
+    <onsuccess>65860d04-3f92-413e-a65e-089dd2a75dc8</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="65860d04-3f92-413e-a65e-089dd2a75dc8" name="Save and Close workbook" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>465</displayx>
+    <displayy>285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="008000" />
+    <inputs>
+      <input type="number" name="handle" narrative="The integer handle identifying the instance on which the workbook which should be closed resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" narrative="The name of the workbook which should be closed." expr="[Workbook Name]" />
+      <input type="flag" name="Save Data" narrative="True to save the data before closing the workbook; The default of False will discard any changes before closing the workbook." expr="&quot;True&quot;" />
+    </inputs>
+    <onsuccess>8e607995-265f-4dac-b993-324f2eee8507</onsuccess>
+    <resource object="MS Excel VBO" action="Close Workbook" />
+  </stage>
+  <stage stageid="021261f6-ca0d-4d81-ac63-4a532daa008b" name="Collection" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>540</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>195</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c2bc9f83-d5c1-4e52-960f-447867edc1ae" name="Dataitem" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>60</displayy>
+    <displaywidth>315</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="FFCC99" />
+  </stage>
+  <stage stageid="4c3ac20f-9a4c-4bd4-bc5a-eed77bb5700d" name="Add To Queue" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Currecny_Queue&quot;" />
+      <input type="collection" name="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Input Collection]" />
+      <input type="datetime" name="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>d72de3a6-ccb6-4183-a74c-00bec3339584</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="d72de3a6-ccb6-4183-a74c-00bec3339584" name="Get nexrt item" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Currecny_Queue&quot;" />
+      <input type="text" name="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" narrative="The data associated with the item - a single collection row." stage="Queue Data" />
+      <output type="text" name="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>a42cde07-8306-4760-8004-c6fcd747882d</onsuccess>
+    <breakpoint type="0">
+      <condition>
+      </condition>
+    </breakpoint>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="2dbd2ba8-953b-4004-b409-0a4b065f2ec8" name="Item ID" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8e785045-aa5b-47f0-92eb-a23cf6c69db2" name="Queue Data" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-495</displayx>
+    <displayy>210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8e6d17a6-2911-4c8c-905d-747fa2210240" name="Output Collection" type="Collection">
+    <narrative>
+    </narrative>
+    <displayx>-390</displayx>
+    <displayy>300</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b22038ce-6f80-4237-a5db-11eab3bf9df4" name="Append Collection" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>210</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Main Collection" narrative="The collection to append to." expr="[Output Collection]" />
+      <input type="collection" name="Collection to Append" narrative="The collection to append." expr="[Queue Data]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Combined Collection" narrative="The combined collection." stage="Output Collection" />
+    </outputs>
+    <onsuccess>cd6d569c-c29a-41c1-ad8c-9e2b2a3269ad</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Append Rows to Collection" />
+  </stage>
+  <stage stageid="a42cde07-8306-4760-8004-c6fcd747882d" name="ItemID Empty?" type="Decision">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>15</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Item ID]&lt;&gt;&quot;&quot;" />
+    <ontrue>f1e1072d-bfcf-484d-83a8-6fa4317f998f</ontrue>
+    <onfalse>29bc17ec-dcd8-427b-88d2-a6c08e32479b</onfalse>
+  </stage>
+  <stage stageid="29bc17ec-dcd8-427b-88d2-a6c08e32479b" name="Anchor1" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>15</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d43d528f-6465-4ef4-9f07-5975f533c9b7</onsuccess>
+  </stage>
+  <stage stageid="db551995-8304-40cc-94f6-e11b68992a46" name="Anchor2" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>390</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b22038ce-6f80-4237-a5db-11eab3bf9df4</onsuccess>
+  </stage>
+  <stage stageid="cd6d569c-c29a-41c1-ad8c-9e2b2a3269ad" name="Mark Completed" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>450486f0-e1d6-48fd-b907-32e4e643a594</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="97972c6b-c08c-4cd8-b1da-868ea9dd4fd3" name="Block1" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-585</displayx>
+    <displayy>135</displayy>
+    <displaywidth>300</displaywidth>
+    <displayheight>225</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="FF6600" />
+  </stage>
+  <stage stageid="6e8caa24-cd67-47fb-93fe-73828e702b1b" name="Currency Converter" type="SubSheetInfo">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="2000bb2f-b5d1-4df6-a2f1-3ff927f05232" name="Start" type="Start">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="InputValue" stage="InputValue" />
+      <input type="text" name="From Currency" stage="From Currency" />
+      <input type="text" name="To Currency" stage="To Currency" />
+    </inputs>
+    <onsuccess>d3dbf57a-3c42-483e-9af8-c8fa65a03d33</onsuccess>
+  </stage>
+  <stage stageid="08964663-137f-4c02-9cde-8ca3b046cb9f" name="End" type="End">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="Result" stage="Result" />
+    </outputs>
+  </stage>
+  <stage stageid="d3dbf57a-3c42-483e-9af8-c8fa65a03d33" name="Enter Input Value" type="Action">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <inputs>
+      <input type="number" name="Input Value" expr="[InputValue]" />
+    </inputs>
+    <onsuccess>c8ab31ec-ec26-4bdb-b4e3-e72a12b35c97</onsuccess>
+    <resource object="Currency_Converter" action="Enter Input Value" />
+  </stage>
+  <stage stageid="c8ab31ec-ec26-4bdb-b4e3-e72a12b35c97" name="Enter From Currency " type="Action">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>120</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <inputs>
+      <input type="text" name="From Currency" expr="[From Currency]" />
+    </inputs>
+    <onsuccess>077d29d4-5251-4da0-b43e-43d9e7c634d9</onsuccess>
+    <resource object="Currency_Converter" action="Enter From Currency" />
+  </stage>
+  <stage stageid="077d29d4-5251-4da0-b43e-43d9e7c634d9" name="Enter To Currency" type="Action">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <inputs>
+      <input type="text" name="To Currency" expr="[To Currency]" />
+    </inputs>
+    <onsuccess>8cff2563-be50-4cf3-b809-dbe5ae2cac3a</onsuccess>
+    <resource object="Currency_Converter" action="Enter To Currecny" />
+  </stage>
+  <stage stageid="8cff2563-be50-4cf3-b809-dbe5ae2cac3a" name="Click Go" type="Action">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>45</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <onsuccess>21d3b04a-f638-47f4-b5e4-2c6c9453276e</onsuccess>
+    <resource object="Currency_Converter" action="Click Go" />
+  </stage>
+  <stage stageid="21d3b04a-f638-47f4-b5e4-2c6c9453276e" name="Result" type="Action">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>120</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <outputs>
+      <output type="text" name="Result" stage="Result" />
+    </outputs>
+    <onsuccess>57c0359b-ef9a-4129-ae1a-cfc042d06b0a</onsuccess>
+    <resource object="Currency_Converter" action="Result" />
+  </stage>
+  <stage stageid="57c0359b-ef9a-4129-ae1a-cfc042d06b0a" name="Back Button" type="Action">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>195</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Bold" color="FF0000" />
+    <onsuccess>08964663-137f-4c02-9cde-8ca3b046cb9f</onsuccess>
+    <resource object="Currency_Converter" action="Back to Home" />
+  </stage>
+  <stage stageid="f1e1072d-bfcf-484d-83a8-6fa4317f998f" name="Currency Converter" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>390</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="InputValue" expr="[Queue Data.Amount]" />
+      <input type="text" name="From Currency" expr="[Queue Data.Currency]" />
+      <input type="text" name="To Currency" expr="[To Currecy]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Result" stage="Queue Data.INR" />
+    </outputs>
+    <onsuccess>db551995-8304-40cc-94f6-e11b68992a46</onsuccess>
+    <processid>8630bcba-4831-4c8d-a045-f787faa9b085</processid>
+  </stage>
+  <stage stageid="8e000353-e344-4e1f-87aa-29f453d7dbaf" name="InputValue" type="Data">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>330</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4cd31ad6-da50-4fc3-bc13-d9d2d3bbfff7" name="From Currency" type="Data">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>270</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e1cc6b14-088c-420b-9e17-5dff0fd1b011" name="To Currency" type="Data">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="473fb4d0-4c32-4616-a191-4f0a2ec46617" name="Result" type="Data">
+    <subsheetid>8630bcba-4831-4c8d-a045-f787faa9b085</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dacec8f5-a03c-49c3-add4-a5467a0cec80" name="Recover1" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>345</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1937600d-bac0-4ece-b32d-ba8f564a4f99</onsuccess>
+  </stage>
+  <stage stageid="1937600d-bac0-4ece-b32d-ba8f564a4f99" name="Update Exception" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>255</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fa471e63-9db9-435b-8238-d92e11859dd7</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="ED" />
+  </stage>
+  <stage stageid="36639d39-afe1-4fad-befd-36ceedf8bbf6" name="ED" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>720</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eeb29152-dcd8-492b-affa-5b1d55ecf42e" name="Mark Exception" type="Action">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>105</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" narrative="A description of the reason for the exception" expr="[ED]" />
+      <input type="flag" name="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="" />
+      <input type="flag" name="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>450486f0-e1d6-48fd-b907-32e4e643a594</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="fa471e63-9db9-435b-8238-d92e11859dd7" name="Resume1" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>180</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>eeb29152-dcd8-492b-affa-5b1d55ecf42e</onsuccess>
+  </stage>
+  <stage stageid="450486f0-e1d6-48fd-b907-32e4e643a594" name="Anchor3" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-90</displayx>
+    <displayy>60</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d72de3a6-ccb6-4183-a74c-00bec3339584</onsuccess>
+  </stage>
+  <stage stageid="25120e52-d2a0-40ce-ad3a-71d47ac036e6" name="Block2" type="Block">
+    <narrative>
+    </narrative>
+    <displayx>-75</displayx>
+    <displayy>315</displayy>
+    <displaywidth>345</displaywidth>
+    <displayheight>135</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+</process>
